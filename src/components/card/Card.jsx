@@ -12,7 +12,7 @@ export const Card = ({ name, image, description, price, comment, id }) => {
   const navigate = useNavigate();
 
   const enterProduct = (id) => {
-    navigate(`/products`);
+    navigate(`/category/${id}`);
     console.log(id);
   };
   return (
