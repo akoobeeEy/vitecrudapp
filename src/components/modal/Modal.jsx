@@ -50,7 +50,7 @@ export const Modal = () => {
         <div className="flex justify-between py-2 ">
           <div className="flex justify-center">
             <h1 className="text-2xl font-bold text-center text-green-500">
-              Category Data
+              Post Data
             </h1>
           </div>
           <motion.button
@@ -75,7 +75,7 @@ export const Modal = () => {
                 name="name"
                 type="text"
                 className="modal-input"
-                placeholder="Enter category name"
+                placeholder="Enter post name"
               />
             </div>
             <div className="flex items-center h-10 p-3 mb-3 bg-green-500 rounded-md w-[70%]">
@@ -85,7 +85,7 @@ export const Modal = () => {
                 name="description"
                 type="text"
                 className="modal-input"
-                placeholder="Enter category description"
+                placeholder="Enter post description"
               />
             </div>
             <div className="flex items-center h-10 p-3 mb-3 bg-green-500 rounded-md w-[70%]">
@@ -105,7 +105,7 @@ export const Modal = () => {
                 name="price"
                 type="number"
                 className="modal-input"
-                placeholder="Enter category price"
+                placeholder="Enter post price"
               />
             </div>
             <div className="flex p-3 mb-3 bg-green-500 rounded-md h-14 w-[70%]">
@@ -133,7 +133,7 @@ export const Modal = () => {
               type="submit"
               className="px-8 py-2 text-green-500 bg-white border-2 border-green-500 rounded-full"
             >
-              {selected ? "Save" : "Add"} Category
+              {selected ? "Save" : "Add"} Post
             </button>
           </div>
         </form>

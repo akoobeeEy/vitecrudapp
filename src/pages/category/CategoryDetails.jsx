@@ -1,5 +1,5 @@
 
-export const Products = () => {
+export const CategoryDetails = () => {
   return (
     <div>
       
