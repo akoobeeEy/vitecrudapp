@@ -1,15 +1,37 @@
-import { useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-
-import { Modal } from "../../components/modal";
-import { AppContext } from "../../context";
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { openModal, closeModal } from "../../redux/reducers/categoryReducer";
+import {
+  handleSearch,
+  fetchData,
+  filterData,
+} from "../../redux/reducers/categoryReducer";
+// Component
 import { Card } from "../../components/card";
-import { Loading } from "../../components/loading";
+import { Loading } from "../../components/loading/Loading";
+import { Modal } from "../../components/modal/Modal";
+import { useEffect } from "react";
 
 export const Home = () => {
-  const { modalOpen, open, close, loading,search,handleSearch } = useContext(AppContext);
-  const { data } = useContext(AppContext);
+  const dispatch = useDispatch();
+  const open = () => dispatch(openModal());
+  const close = () => dispatch(closeModal());
+  const { data, modalOpen, loading, search } = useSelector(
+    (state) => state.category
+  );
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(filterData());
+  }, [dispatch, data, search]);
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    dispatch(handleSearch(inputValue));
+  };
   return (
     <div className="py-10 ">
       <div className="container mx-auto">
@@ -20,8 +42,8 @@ export const Home = () => {
           </p>
           <div className="w-[700px] h-10">
             <input
-            value={search}
-            onChange={handleSearch}
+              value={search}
+              onChange={handleInputChange}
               type="text"
               className="w-full h-full px-4 italic text-white bg-green-500 rounded-md shadow-2xl outline-none shadow-green-300 placeholder:text-blue-950"
               placeholder="Search..."
@@ -29,7 +51,6 @@ export const Home = () => {
           </div>
           <motion.button
             onClick={() => (modalOpen ? close() : open())}
-        
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className="px-12 py-2 text-white bg-green-500 rounded-md shadow-2xl shadow-white"

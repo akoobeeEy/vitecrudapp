@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 import { AiOutlineClose } from "react-icons/ai";
@@ -9,8 +9,12 @@ import { MdPriceChange } from "react-icons/md";
 import { BsFillCalendarDateFill } from "react-icons/bs";
 import { FaAudioDescription } from "react-icons/fa";
 
-import {Backdrop} from "../backdrop";
-import { AppContext } from "../../context";
+import {
+  closeModal,
+  savePostSuccess,
+} from "../../redux/reducers/categoryReducer";
+import { Backdrop } from "../backdrop";
+import { useDispatch, useSelector } from "react-redux";
 
 const dropIn = {
   hidden: {
@@ -33,11 +37,17 @@ const dropIn = {
   },
 };
 export const Modal = () => {
-  const { handleSubmit, register, close, selected, onSubmit } =
-    useContext(AppContext);
+  const { selected } = useSelector((state) => state.category);
+  const { register, handleSubmit, reset } = useForm();
+  const dispatch = useDispatch();
+  const close = () => dispatch(closeModal());
+  const onSubmit = (data) => {
+    dispatch(savePostSuccess(data));
+    close();
+  };
 
   return (
-    <Backdrop  onClick={close}>
+    <Backdrop onClick={close}>
       <motion.div
         onClick={(e) => e.stopPropagation()}
         initial="hidden"

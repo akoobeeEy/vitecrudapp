@@ -1,19 +1,28 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
 import { MdOutlineReadMore } from "react-icons/md";
 
-import { AppContext } from "../../context";
-
+import {
+  deleteData,
+  editData,
+} from "../../redux/reducers/categoryReducer";
+import { useDispatch } from "react-redux";
 export const Card = ({ name, image, description, price, comment, id }) => {
-  const { editData, deleteData } = useContext(AppContext);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const enterProduct = (id) => {
     navigate(`/category/${id}`);
     console.log(id);
+  };
+  const edit = (id) => {
+    dispatch(editData(id));
+  };
+
+  const deletedData = (id) => {
+    dispatch(deleteData(id));
   };
   return (
     <motion.div
@@ -45,7 +54,7 @@ export const Card = ({ name, image, description, price, comment, id }) => {
 
         <div className="flex justify-between mt-3">
           <motion.button
-            onClick={() => editData(id)}
+            onClick={() => edit(id)}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className="flex items-center px-6 py-1 text-sm text-blue-600 duration-100 bg-white rounded-full hover:text-white hover:bg-blue-600 c"
@@ -59,7 +68,7 @@ export const Card = ({ name, image, description, price, comment, id }) => {
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            onClick={() => deleteData(id)}
+            onClick={() => deletedData(id)}
             className="flex items-center px-6 py-1 text-sm text-red-500 duration-100 bg-white rounded-full hover:bg-red-500 hover:text-white"
           >
             Delete
